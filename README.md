@@ -6,9 +6,9 @@ GamerSupplies is a comprehensive E-Commerce Platform dedicated to gaming retail.
 
 ## Technology Stack
 
-*   **Backend:** Java 21, Spring Boot 3.4.2
-*   **Database:** PostgreSQL
-*   **Frontend:** Thymeleaf
+*   **Backend:** Java 17, Spring Boot 3.4.2
+*   **Database:** H2 (In-Memory Development) / PostgreSQL (Production ready)
+*   **Frontend:** Thymeleaf (with custom Glassmorphism UI)
 *   **Security:** Spring Security
 *   **Build Tool:** Maven
 
@@ -25,8 +25,8 @@ GamerSupplies is a comprehensive E-Commerce Platform dedicated to gaming retail.
 
 Before running the application, ensure you have the following installed:
 
-*   [Java 21 JDK](https://adoptium.net/)
-*   [PostgreSQL](https://www.postgresql.org/download/)
+*   [Java 17 JDK](https://adoptium.net/) (or a compatible OpenJDK distribution)
+*   Maven 3.8+ (optional, the project includes `./mvnw`)
 
 ## How to Run
 
@@ -36,14 +36,22 @@ Before running the application, ensure you have the following installed:
     cd GamerSupplies
     ```
 
-2.  **Configure the Database:**
-    *   Create a PostgreSQL database named `gamersupplies` (or update `src/main/resources/application.properties` with your database details).
-    *   Ensure your PostgreSQL server is running.
-
-3.  **Run the application:**
+2.  **Run the application (Development Mode):**
+    The application defaults to an **H2 in-memory database**. This means you do not need to install or configure an external database server to test the application locally. Data will reset upon restart.
+    
+    If `spring-boot:run` fails in your environment, package and run the fat JAR directly:
     ```bash
-    ./mvnw spring-boot:run
+    mvn clean package -DskipTests
+    java -jar target\gamersupplies-0.0.1-SNAPSHOT.jar
     ```
 
-4.  **Access the application:**
+3.  **Access the application:**
     *   Open your browser and navigate to `http://localhost:8080`.
+    *   You can access the H2 DB console at `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:gamersuppliesdb`, un/pw: `sa` / `password`).
+
+## Running Tests
+
+The application includes a comprehensive JUnit 5 test suite validating models, MVC controllers, service logic, and database repositories. Run the suite using:
+```bash
+mvn test
+```

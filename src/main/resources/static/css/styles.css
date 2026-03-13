@@ -1,15 +1,228 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    --bg-color: #0b0f19;
+    --card-bg: rgba(20, 27, 45, 0.7);
+    --primary-color: #00d2ff;
+    --primary-glow: rgba(0, 210, 255, 0.4);
+    --secondary-color: #3a7bd5;
+    --text-color: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --input-bg: rgba(15, 23, 42, 0.6);
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(58, 123, 213, 0.12), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 210, 255, 0.12), transparent 25%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.hero-section {
-    background: linear-gradient(135deg, #151e31, #172335);
+main {
+    flex: 1;
 }
 
-.card {
-    border-radius: 12px;
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+.text-muted {
+    color: var(--text-muted) !important;
 }
 
+/* Navbar */
+.navbar {
+    background: rgba(11, 15, 25, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
 .navbar-brand {
-    letter-spacing: 0.5px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
 }
+.nav-link {
+    color: var(--text-muted) !important;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+.nav-link:hover {
+    color: #fff !important;
+}
+
+/* Cards (Glassmorphism) */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: var(--text-color);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Forms */
+.form-label {
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+.form-control, .form-select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+.form-control:focus, .form-select:focus {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--primary-glow);
+}
+.input-group-text {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+/* Override Bootstrap defaults for inputs inside input-groups */
+.input-group > .form-control:focus {
+    z-index: 3;
+}
+
+/* Form Select text color so it doesn't look invisible on dark backgrounds */
+select option {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 210, 255, 0.6);
+    background: linear-gradient(135deg, #00e5ff, #478dec);
+}
+
+.btn-outline-secondary {
+    color: var(--text-muted);
+    border-color: var(--border-color);
+    background: transparent;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.btn-outline-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+/* Validation overrides */
+.form-control.is-invalid, .form-select.is-invalid {
+    border-color: #ff4b4b;
+    background-image: none;
+}
+.form-control.is-invalid:focus, .form-select.is-invalid:focus {
+    box-shadow: 0 0 0 4px rgba(255, 75, 75, 0.2);
+    border-color: #ff4b4b;
+}
+.invalid-feedback {
+    color: #ff6b6b;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+/* Tables */
+.table {
+    color: var(--text-color);
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text-color);
+    vertical-align: middle;
+}
+.table-dark {
+    --bs-table-bg: rgba(0, 0, 0, 0.3);
+    color: var(--text-muted);
+}
+.table-hover tbody tr {
+    transition: background-color 0.2s;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+}
+.table td, .table th {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+}
+.table thead th {
+    font-size: 0.85rem;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-color);
+}
+code {
+    color: var(--primary-color);
+    background: rgba(0, 210, 255, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* Badges */
+.badge.bg-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    box-shadow: 0 2px 8px var(--primary-glow);
+}
+.badge.bg-success {
+    background: linear-gradient(135deg, #00f260, #0575e6) !important;
+    box-shadow: 0 2px 8px rgba(0, 242, 96, 0.3);
+}
+.badge.bg-warning {
+    background: linear-gradient(135deg, #fceabb, #f8b500) !important;
+    box-shadow: 0 2px 8px rgba(248, 181, 0, 0.3);
+}
+
+/* Footer */
+footer {
+    background: rgba(11, 15, 25, 0.8) !important;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted) !important;
+    backdrop-filter: blur(12px);
+}
+
+/* Override utility classes that conflict */
+.bg-light { background-color: transparent !important; }
+.bg-dark { background-color: transparent !important; }
+.text-white { color: var(--text-color) !important; }
+.shadow-sm { box-shadow: none !important; } /* We handle custom shadows in .card */
