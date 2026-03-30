@@ -6,72 +6,50 @@
     <title th:text="'GamerSupplies | ' + ${pageTitle}">GamerSupplies | Categories</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100">
 
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div th:replace="~{fragments/navigation :: navbar}"></div>
 
-<main class="py-5">
-    <section class="container">
-        <header class="text-center mb-5">
-            <h1 class="fw-bold">Categories</h1>
-            <p class="text-muted">
-                Explore the main groups of products planned for the GamerSupplies platform.
-            </p>
-        </header>
-
-        <div class="row g-4">
-            <div class="col-md-4">
-                <article class="card h-100 shadow-sm">
+<main class="flex-grow-1 d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-lg p-4 p-md-5">
                     <div class="card-body">
-                        <h2 class="h4">Consoles</h2>
-                        <p>
-                            Home consoles for gaming and platform hardware for modern players.
-                        </p>
-                    </div>
-                </article>
-            </div>
+                        <header class="text-center mb-5">
+                            <h1 class="fw-bold display-5 mb-3 pb-2" style="background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+                                Categories
+                            </h1>
+                            <p class="lead text-muted">
+                                Explore the main groups of products planned for the GamerSupplies platform.
+                            </p>
+                        </header>
 
-            <div class="col-md-4">
-                <article class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h2 class="h4">Accessories</h2>
-                        <p>
-                            Controllers, headsets, keyboards, mice, and other essential equipment for gaming setups.
-                        </p>
+                        <div class="row g-4 text-center">
+                            <div class="col-md-4">
+                                <h2 class="h4 text-white">Consoles</h2>
+                                <p class="text-muted">Home consoles for gaming and platform hardware for modern players.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h2 class="h4 text-white">Accessories</h2>
+                                <p class="text-muted">Controllers, headsets, keyboards, mice, and other essential equipment.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h2 class="h4 text-white">Games</h2>
+                                <p class="text-muted">The game titles across multiple genres and gaming platforms.</p>
+                            </div>
+                        </div>
                     </div>
-                </article>
-            </div>
-
-            <div class="col-md-4">
-                <article class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h2 class="h4">Games</h2>
-                        <p>
-                            The game titles across multiple genres and gaming platforms for every types of gamers.
-                        </p>
-                    </div>
-                </article>
-            </div>
-        </div>
-
-        <section class="mt-5">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="h4">Focus On Categories</h2>
-                    <p class="mb-0">
-                        These categories reflect on the domain planning in Assignment 0, where the products are organized
-                        into gaming-related types like the console products, accessories, and games.
-                    </p>
                 </div>
             </div>
-        </section>
-    </section>
+        </div>
+    </div>
 </main>
 
-<footer class="bg-dark text-white py-3 mt-5">
-    <div class="container text-center">
+<footer class="mt-auto py-4">
+    <div class="container text-center text-muted">
         <p class="mb-0">&copy; 2026 GamerSupplies | Star Mode Studios</p>
     </div>
 </footer>
