@@ -1,6 +1,3 @@
-//Name: Fahad Arif (N01729165)
-//Course: Web Application Development (CPAN-228)
-
 package com.starmodestudios.gamersupplies.service;
 
 import com.starmodestudios.gamersupplies.model.User;

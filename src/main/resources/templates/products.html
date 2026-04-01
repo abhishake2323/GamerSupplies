@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
                 </h1>
                 <p class="text-muted mb-0 fs-5 mt-2">All available gear in the GamerSupplies system.</p>
             </div>
-            <a th:href="@{/products/add}" class="btn btn-primary">
+            <a th:href="@{/products/add}" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'STAFF')">
                 + Add Product
             </a>
         </div>
@@ -106,7 +106,7 @@
             <div class="card-body">
                 <p class="text-muted fs-5 mb-3" th:if="${selectedCategory == null && selectedMaxPrice == null}">No products yet.</p>
                 <p class="text-muted fs-5 mb-3" th:unless="${selectedCategory == null && selectedMaxPrice == null}">No products match your filters.</p>
-                <a th:href="@{/products/add}" class="btn btn-primary" th:if="${selectedCategory == null && selectedMaxPrice == null}">Add Your First Product</a>
+                <a th:href="@{/products/add}" class="btn btn-primary" th:if="${selectedCategory == null && selectedMaxPrice == null}" sec:authorize="hasAnyRole('ADMIN', 'STAFF')">Add Your First Product</a>
                 <a th:href="@{/products}" class="btn btn-outline-secondary" th:unless="${selectedCategory == null && selectedMaxPrice == null}">Clear Filters</a>
             </div>
         </div>
@@ -124,6 +124,7 @@
                                 <th scope="col">Category</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Qty</th>
+                                <th scope="col" class="text-end" sec:authorize="hasRole('ADMIN')">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,6 +140,13 @@
                                 </td>
                                 <td th:text="'$' + ${#numbers.formatDecimal(product.price, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
                                 <td th:text="${product.quantity}">0</td>
+                                <td class="text-end" sec:authorize="hasRole('ADMIN')">
+                                    <a class="btn btn-sm btn-outline-primary" th:href="@{|/products/admin/edit/${product.id}|}">Edit</a>
+                                    <form th:action="@{|/products/admin/delete/${product.id}|}" method="post" class="d-inline">
+                                        <button class="btn btn-sm btn-outline-danger ms-1" type="submit"
+                                                onclick="return confirm('Are you sure you want to delete this product?');">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -25,13 +25,13 @@ public class SecurityConfig {
         this.userService = userService;
     }
 
-    // ── Password Encoder ────────────────────────────────────────────────────────
+    // Password Encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ── Authentication Provider ─────────────────────────────────────────────────
+    // Authentication Provider
     // Wires UserService (which implements UserDetailsService) and the PasswordEncoder
     // together so Spring Security knows how to look up and verify users from the database.
     @Bean
@@ -42,7 +42,7 @@ public class SecurityConfig {
         return provider;
     }
 
-    // ── Security Filter Chain ───────────────────────────────────────────────────
+    // Security Filter Chain
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -50,7 +50,7 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // ── Public routes — no login required ──────────────────────────
+                // Public routes
                 .requestMatchers(
                     "/", "/home", "/about", "/categories",
                     "/products",            // list view stays public
@@ -59,18 +59,18 @@ public class SecurityConfig {
                     "/h2-console/**"
                 ).permitAll()
 
-                // ── ADMIN + STAFF — can add products ──────────────────────────
+                // ADMIN, STAFF — can add products
                 .requestMatchers("/products/add").hasAnyRole("ADMIN", "STAFF")
 
-                // ── ADMIN only — full admin area ───────────────────────────────
+                // ADMIN only full admin area
                 .requestMatchers("/admin/**", "/products/admin/**", "/products/edit/**", "/products/delete/**")
                     .hasRole("ADMIN")
 
-                // ── Everything else requires login ────────────────────────────
+                // Everything else requires login
                 .anyRequest().authenticated()
             )
 
-            // ── Custom login page ───────────────────────────────────────────────
+            // Custom login page
             // Member 2 built /login — Spring Security will POST credentials to /login
             // and redirect to /products on success.
             .formLogin(form -> form
@@ -80,7 +80,7 @@ public class SecurityConfig {
                 .permitAll()
             )
 
-            // ── Logout ──────────────────────────────────────────────────────────
+            // Logout
             // Member 2's navbar POSTs to /logout — this handles it and redirects to
             // /login?logout so the "Logged out successfully" message shows.
             .logout(logout -> logout
@@ -91,7 +91,7 @@ public class SecurityConfig {
                 .permitAll()
             )
 
-            // ── H2 console support (dev only) ────────────────────────────────────
+            // H2 console support (dev only)
             .headers(headers -> headers
                 .frameOptions(frame -> frame.sameOrigin())
             )

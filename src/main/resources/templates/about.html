@@ -6,58 +6,55 @@
     <title th:text="'GamerSupplies | ' + ${pageTitle}">GamerSupplies | About</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100">
 
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div th:replace="~{fragments/navigation :: navbar}"></div>
 
-<main class="py-5">
-    <section class="container">
-        <header class="mb-4 text-center">
-            <h1 class="fw-bold">About GamerSupplies</h1>
-            <p class="text-muted">
-                Learn more about the concept of the gaming retail platform.
-            </p>
-        </header>
-
-        <div class="row g-4">
-            <div class="col-lg-6">
-                <article class="card shadow-sm h-100">
+<main class="flex-grow-1 d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-lg p-4 p-md-5 text-center">
                     <div class="card-body">
-                        <h2 class="h4">What We Do</h2>
-                        <p>
-                            GamerSupplies is designed as a gaming-focused e-commerce platform where users can
-                            browse gaming products in a clean and user-friendly environment.
-                        </p>
-                        <p>
-                            This project demonstrates a professional web layout using Spring Boot, Thymeleaf,
-                            and Bootstrap for responsive design.
-                        </p>
-                    </div>
-                </article>
-            </div>
+                        <header class="mb-5">
+                            <h1 class="fw-bold display-5 mb-3 pb-2" style="background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+                                About GamerSupplies
+                            </h1>
+                            <p class="lead text-muted">
+                                Learn more about the concept behind the gaming retail platform.
+                            </p>
+                        </header>
 
-            <div class="col-lg-6">
-                <article class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h2 class="h4">What Makes GamerSupplies Relevant</h2>
-                        <p>
-                            A gaming retail domain is a strong fit for web application development because it naturally supports
-                            product browsing, user interaction, and structured front-end pages.
-                        </p>
-                        <p>
-                            This project matches the GamerSupplies team plan for a gaming retail e-commerce experience.
-                        </p>
+                        <div class="row g-4 text-start">
+                            <div class="col-md-6">
+                                <h2 class="h4 text-white">What We Do</h2>
+                                <p class="text-muted">
+                                    GamerSupplies is designed as a gaming-focused e-commerce platform where users can
+                                    browse gaming products in a clean and user-friendly environment.
+                                    This application demonstrates a professional web architecture built strictly using Spring Boot, Thymeleaf,
+                                    and Bootstrap for responsive front-end design.
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h2 class="h4 text-white">Why It Matters</h2>
+                                <p class="text-muted">
+                                    A gaming retail domain is a strong fit for modern web application development because it naturally scales to support
+                                    extensive product catalogs, real-time user interaction, and robust back-office operations.
+                                    This framework lays the foundation for a truly expansive e-commerce platform.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </article>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 </main>
 
-<footer class="bg-dark text-white py-3 mt-5">
-    <div class="container text-center">
+<footer class="mt-auto py-4">
+    <div class="container text-center text-muted">
         <p class="mb-0">&copy; 2026 GamerSupplies | Star Mode Studios</p>
     </div>
 </footer>

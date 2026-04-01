@@ -167,6 +167,8 @@ select option {
     color: var(--text-color);
     --bs-table-bg: transparent;
     --bs-table-color: var(--text-color);
+    --bs-table-hover-color: var(--text-color);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.05);
     vertical-align: middle;
 }
 .table-dark {
@@ -175,10 +177,6 @@ select option {
 }
 .table-hover tbody tr {
     transition: background-color 0.2s;
-}
-.table-hover tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-color);
 }
 .table td, .table th {
     border-bottom: 1px solid var(--border-color);
@@ -222,7 +220,8 @@ footer {
 }
 
 /* Override utility classes that conflict */
-.bg-light { background-color: transparent !important; }
-.bg-dark { background-color: transparent !important; }
+.bg-light { background-color: transparent !important; color: var(--text-color) !important; }
+.bg-dark { background-color: transparent !important; color: var(--text-color) !important; }
 .text-white { color: var(--text-color) !important; }
+.text-dark { color: var(--text-color) !important; }
 .shadow-sm { box-shadow: none !important; } /* We handle custom shadows in .card */
