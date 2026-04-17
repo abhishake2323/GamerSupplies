@@ -24,4 +24,10 @@ public class HomeController {
         model.addAttribute("pageTitle", "About");
         return "about";
     }
+
+    @GetMapping("/access-denied")
+    public String accessDenied(Model model) {
+        model.addAttribute("pageTitle", "Access Denied");
+        return "access-denied";
+    }
 }

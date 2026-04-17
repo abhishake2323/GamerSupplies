@@ -1,3 +1,6 @@
+//Name: Fahad Arif (N01729165)
+//Course: Web Application Development (CPAN-228)
+
 package com.starmodestudios.gamersupplies.model;
 
 import jakarta.persistence.*;
@@ -14,7 +17,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Auto-set on insert
     @CreationTimestamp
     @Column(name = "created", nullable = false, updatable = false)
     private LocalDateTime created;
@@ -42,7 +44,8 @@ public class Product {
     private Integer quantity;
 
     @NotBlank(message = "Category is required")
-    @Column(nullable = false)
+    @Size(max = 100, message = "Category must be 100 characters or fewer")
+    @Column(nullable = false, length = 100)
     private String category;
 
     @NotBlank(message = "SKU is required")
@@ -50,14 +53,12 @@ public class Product {
     @Column(nullable = false, unique = true, length = 50)
     private String sku;
 
-    // Optional product image
-    @Column(name = "image_url")
+    @Size(max = 500, message = "Image URL must be 500 characters or fewer")
+    @Column(name = "image_url", length = 500)
     private String imageUrl;
 
-    // Constructors
     public Product() {}
 
-    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -65,10 +66,14 @@ public class Product {
     public void setCreated(LocalDateTime created) { this.created = created; }
 
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name != null ? name.trim() : null;
+    }
 
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String description) {
+        this.description = description != null ? description.trim() : null;
+    }
 
     public Double getPrice() { return price; }
     public void setPrice(Double price) { this.price = price; }
@@ -77,11 +82,17 @@ public class Product {
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
 
     public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public void setCategory(String category) {
+        this.category = category != null ? category.trim() : null;
+    }
 
     public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
+    public void setSku(String sku) {
+        this.sku = sku != null ? sku.trim() : null;
+    }
 
     public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl != null ? imageUrl.trim() : null;
+    }
 }

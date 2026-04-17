@@ -17,7 +17,6 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
 
-                <!-- Page header -->
                 <div class="mb-5 text-center">
                     <h1 class="fw-bold mb-2 text-gradient" style="background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-controller me-2 mb-1 text-primary" viewBox="0 0 16 16">
@@ -29,18 +28,14 @@
                     <p class="text-muted fs-5">Expand your inventory with high-performance products.</p>
                 </div>
 
-                <!-- Add Product Form -->
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
 
-                        <form th:action="@{/products/add}"
+                        <form th:action="@{/admin/add}"
                               th:object="${product}"
                               method="post"
                               novalidate>
 
-                            <!-- CSRF token handled automatically by Spring Security + Thymeleaf -->
-
-                            <!-- Product Name -->
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-semibold">
                                     Product Name <span class="text-danger">*</span>
@@ -48,14 +43,15 @@
                                 <input type="text"
                                        id="name"
                                        th:field="*{name}"
-                                       th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
+                                       th:classappend="${#fields.hasErrors('name')} ? ' is-invalid' : ''"
                                        class="form-control"
                                        placeholder="e.g. PlayStation 5 Controller"
                                        maxlength="100">
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                <div class="invalid-feedback"
+                                     th:if="${#fields.hasErrors('name')}"
+                                     th:errors="*{name}"></div>
                             </div>
 
-                            <!-- SKU -->
                             <div class="mb-3">
                                 <label for="sku" class="form-label fw-semibold">
                                     SKU <span class="text-danger">*</span>
@@ -63,66 +59,72 @@
                                 <input type="text"
                                        id="sku"
                                        th:field="*{sku}"
-                                       th:classappend="${#fields.hasErrors('sku')} ? 'is-invalid'"
+                                       th:classappend="${#fields.hasErrors('sku')} ? ' is-invalid' : ''"
                                        class="form-control"
                                        placeholder="e.g. CTRL-PS5-WHT"
                                        maxlength="50">
                                 <div class="form-text">Unique product code used to identify this item.</div>
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}"></div>
+                                <div class="invalid-feedback"
+                                     th:if="${#fields.hasErrors('sku')}"
+                                     th:errors="*{sku}"></div>
                             </div>
 
-                            <!-- Category -->
                             <div class="mb-3">
                                 <label for="category" class="form-label fw-semibold">
                                     Category <span class="text-danger">*</span>
                                 </label>
                                 <select id="category"
                                         th:field="*{category}"
-                                        th:classappend="${#fields.hasErrors('category')} ? 'is-invalid'"
+                                        th:classappend="${#fields.hasErrors('category')} ? ' is-invalid' : ''"
                                         class="form-select">
                                     <option value="">— Select a category —</option>
                                     <option th:each="cat : ${categories}"
                                             th:value="${cat}"
                                             th:text="${cat}"></option>
                                 </select>
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+                                <div class="invalid-feedback"
+                                     th:if="${#fields.hasErrors('category')}"
+                                     th:errors="*{category}"></div>
                             </div>
 
-                            <!-- Description -->
                             <div class="mb-3">
                                 <label for="description" class="form-label fw-semibold">
                                     Description <span class="text-danger">*</span>
                                 </label>
                                 <textarea id="description"
                                           th:field="*{description}"
-                                          th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'"
+                                          th:classappend="${#fields.hasErrors('description')} ? ' is-invalid' : ''"
                                           class="form-control"
                                           rows="3"
                                           placeholder="Describe the product..."
                                           maxlength="500"></textarea>
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                                <div class="invalid-feedback"
+                                     th:if="${#fields.hasErrors('description')}"
+                                     th:errors="*{description}"></div>
                             </div>
 
-                            <!-- Price & Quantity (side by side) -->
                             <div class="row g-3 mb-4">
                                 <div class="col-sm-6">
                                     <label for="price" class="form-label fw-semibold">
                                         Price ($) <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group shadow-sm rounded-3">
-                                        <span class="input-group-text border-end-0 bg-transparent text-primary fw-bold">$$$</span>
+                                        <span class="input-group-text border-end-0 bg-transparent text-primary fw-bold">$</span>
                                         <input type="number"
                                                id="price"
                                                th:field="*{price}"
-                                               th:classappend="${#fields.hasErrors('price')} ? 'is-invalid'"
+                                               th:classappend="${#fields.hasErrors('price')} ? ' is-invalid' : ''"
                                                class="form-control"
                                                placeholder="0.00"
                                                step="0.01"
                                                min="0.01"
                                                max="9999.99">
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                                        <div class="invalid-feedback"
+                                             th:if="${#fields.hasErrors('price')}"
+                                             th:errors="*{price}"></div>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6">
                                     <label for="quantity" class="form-label fw-semibold">
                                         Quantity <span class="text-danger">*</span>
@@ -130,20 +132,39 @@
                                     <input type="number"
                                            id="quantity"
                                            th:field="*{quantity}"
-                                           th:classappend="${#fields.hasErrors('quantity')} ? 'is-invalid'"
+                                           th:classappend="${#fields.hasErrors('quantity')} ? ' is-invalid' : ''"
                                            class="form-control"
                                            placeholder="0"
                                            min="0"
                                            max="9999">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+                                    <div class="invalid-feedback"
+                                         th:if="${#fields.hasErrors('quantity')}"
+                                         th:errors="*{quantity}"></div>
                                 </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="imageUrl" class="form-label fw-semibold">
+                                    Image URL
+                                </label>
+                                <input type="text"
+                                       id="imageUrl"
+                                       th:field="*{imageUrl}"
+                                       th:classappend="${#fields.hasErrors('imageUrl')} ? ' is-invalid' : ''"
+                                       class="form-control"
+                                       placeholder="https://example.com/product-image.jpg"
+                                       maxlength="500">
+                                <div class="form-text">Optional product image link.</div>
+                                <div class="invalid-feedback"
+                                     th:if="${#fields.hasErrors('imageUrl')}"
+                                     th:errors="*{imageUrl}"></div>
                             </div>
 
                             <div class="d-flex gap-3 mt-5 pt-3 border-top border-secondary border-opacity-25">
                                 <button type="submit" class="btn btn-primary px-5 py-2 fs-5 w-100">
                                     Initialize Product
                                 </button>
-                                <a th:href="@{/products}" class="btn btn-outline-secondary px-5 py-2 fs-5 w-100">
+                                <a th:href="@{/admin}" class="btn btn-outline-secondary px-5 py-2 fs-5 w-100">
                                     Abort
                                 </a>
                             </div>
@@ -152,7 +173,6 @@
                     </div>
                 </div>
 
-                <!-- Required fields note -->
                 <p class="text-muted mt-3 small">
                     <span class="text-danger">*</span> Required fields
                 </p>

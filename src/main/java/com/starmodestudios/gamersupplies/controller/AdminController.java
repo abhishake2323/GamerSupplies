@@ -1,3 +1,6 @@
+//Name: Fahad Arif (N01729165)
+//Course: Web Application Development (CPAN-228)
+
 package com.starmodestudios.gamersupplies.controller;
 
 import java.util.List;
@@ -28,8 +31,8 @@ public class AdminController {
     private final ProductRepository productRepository;
 
     private static final List<String> CATEGORIES = List.of(
-        "Consoles", "Controllers", "Gaming Headsets", 
-        "Keyboards", "Mice", "Monitors", "Gaming Chairs", 
+        "Consoles", "Controllers", "Headsets",
+        "Keyboards", "Mice", "Monitors", "Chairs",
         "Accessories", "Games", "Merchandise"
     );
 
@@ -46,10 +49,41 @@ public class AdminController {
         return "admin";
     }
 
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("product", new Product());
+        model.addAttribute("categories", CATEGORIES);
+        model.addAttribute("pageTitle", "Add Product");
+        return "add-product";
+    }
+
+    @PostMapping("/add")
+    public String addProduct(@Valid @ModelAttribute("product") Product product,
+                             BindingResult bindingResult,
+                             Model model,
+                             RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", CATEGORIES);
+            model.addAttribute("pageTitle", "Add Product");
+            return "add-product";
+        }
+
+        productService.save(product);
+        redirectAttributes.addFlashAttribute("successMessage",
+                "Product \"" + product.getName() + "\" was added successfully!");
+        return "redirect:/admin";
+    }
+
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
+    public String showEditForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (product == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Product not found.");
+            return "redirect:/admin";
+        }
+
         model.addAttribute("product", product);
         model.addAttribute("categories", CATEGORIES);
         model.addAttribute("pageTitle", "Edit Product");
@@ -63,23 +97,42 @@ public class AdminController {
                               Model model,
                               RedirectAttributes redirectAttributes) {
 
+        Product existingProduct = productRepository.findById(id).orElse(null);
+
+        if (existingProduct == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Product not found.");
+            return "redirect:/admin";
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", CATEGORIES);
             model.addAttribute("pageTitle", "Edit Product");
             return "edit";
         }
 
-        product.setId(id);
-        productService.save(product);
+        existingProduct.setName(product.getName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setQuantity(product.getQuantity());
+        existingProduct.setCategory(product.getCategory());
+        existingProduct.setSku(product.getSku());
+        existingProduct.setImageUrl(product.getImageUrl());
+
+        productService.save(existingProduct);
+
         redirectAttributes.addFlashAttribute("successMessage",
-                "Product \"" + product.getName() + "\" was updated successfully!");
+                "Product \"" + existingProduct.getName() + "\" was updated successfully!");
         return "redirect:/admin";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (product == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Product not found.");
+            return "redirect:/admin";
+        }
 
         productRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("successMessage",
