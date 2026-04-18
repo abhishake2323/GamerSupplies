@@ -29,6 +29,7 @@ services:
       - "8080:8080"
     environment:
       # Datasource — points to the 'db' service on the Docker network
+      SPRING_PROFILES_ACTIVE: qa
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/gamersupplies?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_DATASOURCE_USERNAME: appuser
