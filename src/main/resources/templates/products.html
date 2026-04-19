@@ -23,7 +23,7 @@
                 </h1>
                 <p class="text-muted mb-0 fs-5 mt-2">All available gear in the GamerSupplies system.</p>
             </div>
-            <a th:href="@{/products/add}" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'STAFF')">
+            <a th:href="@{/admin/add}" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'STAFF')">
                 + Add Product
             </a>
         </div>
@@ -106,7 +106,7 @@
             <div class="card-body">
                 <p class="text-muted fs-5 mb-3" th:if="${selectedCategory == null && selectedMaxPrice == null}">No products yet.</p>
                 <p class="text-muted fs-5 mb-3" th:unless="${selectedCategory == null && selectedMaxPrice == null}">No products match your filters.</p>
-                <a th:href="@{/products/add}" class="btn btn-primary" th:if="${selectedCategory == null && selectedMaxPrice == null}" sec:authorize="hasAnyRole('ADMIN', 'STAFF')">Add Your First Product</a>
+                <a th:href="@{/admin/add}" class="btn btn-primary" th:if="${selectedCategory == null && selectedMaxPrice == null}" sec:authorize="hasAnyRole('ADMIN', 'STAFF')">Add Your First Product</a>
                 <a th:href="@{/products}" class="btn btn-outline-secondary" th:unless="${selectedCategory == null && selectedMaxPrice == null}">Clear Filters</a>
             </div>
         </div>

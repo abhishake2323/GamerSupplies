@@ -20,16 +20,25 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/products}">Products</a></li>
 
                 <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','STAFF')">
-                    <a class="nav-link" th:href="@{/products/add}">+ Add Product</a>
+                    <a class="nav-link" th:href="@{/admin/add}">+ Add Product</a>
                 </li>
 
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/admin}">&#9881; Admin Panel</a>
+                </li>
             </ul>
 
             <div class="d-flex align-items-center gap-2">
 
                 <span class="text-light small" sec:authorize="isAuthenticated()">
                     Signed in as <strong sec:authentication="name"></strong>
-                    (<span sec:authentication="principal.role"></span>)
+                    <span class="badge ms-1"
+                          sec:authorize="hasRole('ADMIN')"
+                          style="background-color:#ffc107;color:#000;">ADMIN</span>
+                    <span class="badge bg-info ms-1"
+                          sec:authorize="hasRole('STAFF')">STAFF</span>
+                    <span class="badge bg-secondary ms-1"
+                          sec:authorize="hasRole('CUSTOMER')">CUSTOMER</span>
                 </span>
 
                 <a class="btn btn-outline-light btn-sm"
